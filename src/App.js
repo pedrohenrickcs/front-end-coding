@@ -1,26 +1,40 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import ReactDOM from 'react-dom';
+import { Grid, Row, Col } from 'react-flexbox-grid';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import axios from 'axios';
+import * as ApiGitHub from './Components/Utils/ApiGithub';
+
+const App = () => {
+
+	const BASE_URL = `https://api.github.com/users/pedrohenrickcs`;
+
+	const getUser = (e) => {
+	 	axios.get(BASE_URL)
+	 	.then(data => {
+			 console.log('data', data);
+			 
+			// data.response
+		 }) 
+	 	.catch(err => console.error(err))
+	}
+
+	getUser()
+
+	return(
+		<Grid fluid>
+			<Row>
+				<Col xs={6} md={10}>
+					Hello, world!
+				</Col>
+			</Row>
+      	</Grid>
+	)
 }
+
+ReactDOM.render(
+ 	<App/>,
+  document.getElementById('app')
+);
 
 export default App;
