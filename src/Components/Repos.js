@@ -3,8 +3,6 @@ import axios from 'axios';
 
 const Repos = ( {getUser} ) => {
 
-    console.log('getUser', getUser);
-
     return(
         <div>
             RESULTS REPOSITORIES
