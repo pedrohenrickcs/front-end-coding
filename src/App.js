@@ -7,35 +7,36 @@ import axios from 'axios';
 
 import Search from './Components/Search'
 import Repos from './Components/Repos'
-import { lifecycle } from 'recompose';
 
 export default class App extends Component {
 
 	constructor(props) {
 		super(props)
 		this.state = {
-			items: ''
+			items: [],
+			nameProfile: '',
+			avatar: ''
 		};
 	}
 
 	getApi() {
 		const BASE_URL = `https://api.github.com/users/pedrohenrickcs/repos`;
 
-		console.log('state', this.state);
-		
 		axios.get(BASE_URL)
-				.then(e => {
-					const result = e.data.map((i) => {
-						console.log('i', i.name);
-						
-						return this.state.items = i.name;
-					})
+		.then(e => {
+			console.log('INFOS REPOSITÓRIO ======', e);
 
-					this.setState({ items: result })
-					
-					console.log('result', result);
-				})
-				.catch(err => console.error(err))
+			const wayApi = e.data[0].owner;
+
+			this.setState({ nameProfile: wayApi.login, avatar: wayApi.avatar_url })
+			
+			const result = e.data.map((i) => {				
+				return this.state.items = i;
+			})
+			
+			this.setState({ items: result });
+		})
+		.catch(err => console.error(err))
 	}
 
 	componentDidMount() {
@@ -43,15 +44,45 @@ export default class App extends Component {
 	}
 
 	render() {
+
+		const item  = this.state.items
+
+		console.log('STATE =========', this.state);
+
+		const text = {
+			fontFamily: 'Arial',
+			fontSize: '15px',
+		}
+		
+		const textShort = {
+			fontWeight: '200',
+			fontSize: '30px',
+			marginBottom: '10px',
+			display: 'inline-block',
+		}
+		
+		const image = {
+			width: '60px',
+			height: '60px',
+			verticalAlign: 'middle',
+			marginRight: '10px'
+		}		
+
 		return(
 			<Grid fluid>
 				<Row>
 					<Col xs={12}>
 						<Row center="xs">
+							<h1 style={text}><span style={textShort}>Repositório de:</span><br/>
+								<img src={this.state.avatar} style={image} />
+								{this.state.nameProfile}
+							</h1>
+						</Row>
+						<Row center="xs">
 							<Search></Search>
 						</Row>
 						<Row center="xs">
-							<Repos>
+							<Repos item={item}>
 							</Repos>
 						</Row>
 					</Col>
@@ -59,13 +90,9 @@ export default class App extends Component {
 			  </Grid>
 		)
 	}
-
-	
 }
 
-
-
 ReactDOM.render(
- 	<App/>,
+ 	<App />,
   document.getElementById('app')
 );

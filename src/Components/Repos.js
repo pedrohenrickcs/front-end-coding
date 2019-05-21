@@ -1,12 +1,17 @@
 import React from 'react';
-import axios from 'axios';
 
-const Repos = ( {getUser} ) => {
+const Repos = (props) => {
+    
+    const { item } = props
+
+    console.log('REPOS', item);
 
     return(
-        <div>
-            RESULTS REPOSITORIES
-        </div>
+        <ul>
+            {item.map((e) => (
+                <li key={e.id}>{e.name}</li>
+            ))}
+        </ul>
     )
 }
 
