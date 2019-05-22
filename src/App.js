@@ -79,7 +79,9 @@ export default class App extends Component {
 							</h1>
 						</Row>
 						<Row center="xs">
-							<Search></Search>
+							<Search 
+								item={item}
+							></Search>
 						</Row>
 						<Row center="xs">
 							<Repos item={item}>

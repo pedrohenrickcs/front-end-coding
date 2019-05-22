@@ -2,14 +2,16 @@ import React from 'react';
 
 const Repos = (props) => {
     
-    const { item } = props
-
-    console.log('REPOS', item);
+    const { item } = props;
 
     return(
         <ul>
             {item.map((e) => (
-                <li key={e.id}>{e.name}</li>
+                <li key={e.id}>
+                    <a href="#" >
+                        {e.name}
+                    </a>
+                </li>
             ))}
         </ul>
     )
