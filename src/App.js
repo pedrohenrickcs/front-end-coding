@@ -73,7 +73,7 @@ export default class App extends Component {
 				<Row>
 					<Col xs={12}>
 						<Row center="xs">
-							<h1 style={text}><span style={textShort}>Repositório de:</span><br/>
+							<h1 style={text}><span style={textShort}>GitHub:</span><br/>
 								<img src={this.state.avatar} style={image} />
 								{this.state.nameProfile}
 							</h1>

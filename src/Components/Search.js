@@ -3,25 +3,37 @@ import React, { Component } from 'react';
 class Search extends Component {
     constructor(props) {
         super(props)
-        console.log('item search ====', props);
+        this.state = {
+            resultFilter: [],
+            items: []
+        }
+        console.log('item search ====', this.props);
+        
     }
     
     handleInputChange(event) {
         // const query = event.target.value;
-        console.log('e', this);
         
+        this.setState ({ items: this.props.items })
+        console.log('e', this.state.items);
     
-        // this.setState(prevState => {
-        //     const filter = prevState.item.filter(element => {
-        //         console.log('ELEMENT IS', element.name.toLowerCase().includes(query.toLowerCase()));
-                
-        //         return element.name.toLowerCase().includes(query.toLowerCase());
-        //     })
-    
-        //     return {
-        //         filter
-        //     };
+        // const filter = prevState.item.filter(element => {
+        //     console.log('ELEMENT IS', element.name.toLowerCase().includes(query.toLowerCase()));
+            
+        //     return element.name.toLowerCase().includes(query.toLowerCase());
         // })
+
+        // return {
+        //     filter
+        // };
+
+        // filterLocation(term) {
+        //     const resultFilter = this.state.items.filter((item) => {
+        //         return item.name.toLowerCase().includes(term.toLowerCase());
+        //     });
+
+        //     this.setState({ filteredItems: resultFilter })
+        // }
     }
 
     componentDidMount() {
@@ -29,6 +41,10 @@ class Search extends Component {
     }
 
     render() {
+
+        const { item } = this.props
+
+        console.log('this', item);  
 
         return(
             <form className="search">
