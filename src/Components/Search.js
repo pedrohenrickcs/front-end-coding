@@ -1,55 +1,52 @@
 import React, { Component } from 'react';
+import { browserHistory as history } from 'react-router';
 
 class Search extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            resultFilter: [],
-            items: []
+            searchString: '',
+            item: []
         }
-        console.log('item search ====', this.props);
         
-    }
-    
-    handleInputChange(event) {
-        // const query = event.target.value;
-        
-        this.setState ({ items: this.props.items })
-        console.log('e', this.state.items);
-    
-        // const filter = prevState.item.filter(element => {
-        //     console.log('ELEMENT IS', element.name.toLowerCase().includes(query.toLowerCase()));
-            
-        //     return element.name.toLowerCase().includes(query.toLowerCase());
-        // })
-
-        // return {
-        //     filter
-        // };
-
-        // filterLocation(term) {
-        //     const resultFilter = this.state.items.filter((item) => {
-        //         return item.name.toLowerCase().includes(term.toLowerCase());
-        //     });
-
-        //     this.setState({ filteredItems: resultFilter })
-        // }
+        console.log('item search =dfsdf===', props);
+        this.handleChange = this.handleChange.bind(this);
     }
 
     componentDidMount() {
-        this.handleInputChange()
+
+        console.log(this.props);
+        
+
+        this.setState({
+            item: this.props.item
+        })
     }
 
-    render() {
+    handleChange() {
+        this.setState({
+            searchString: this.refs.search.value
+        });
 
-        const { item } = this.props
-
-        console.log('this', item);  
+        console.log('searchString', this.state.searchString);
+    }
+    
+    render() {        
 
         return(
             <form className="search">
-                <input id="venueType" placeholder="Pesquisar" onChange={this.handleInputChange} />
-                <input type="submit" value="Submit" />
+                <input 
+                    id="venueType" 
+                    type="text"
+                    placeholder="Pesquisar" 
+                    ref="search" 
+                    value={this.state.searchString}
+                    onChange={this.handleChange}
+                />
+                <input 
+                    type="submit" 
+                    value="Submit"
+                />
             </form>
         )
     }

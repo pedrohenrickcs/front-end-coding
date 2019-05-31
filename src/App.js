@@ -24,7 +24,7 @@ export default class App extends Component {
 
 		axios.get(BASE_URL)
 		.then(e => {
-			console.log('INFOS REPOSITÓRIO ======', e);
+			// console.log('INFOS REPOSITÓRIO ======', e);
 
 			const wayApi = e.data[0].owner;
 
@@ -35,6 +35,9 @@ export default class App extends Component {
 			})
 			
 			this.setState({ items: result });
+
+			console.log('this', this);
+			
 		})
 		.catch(err => console.error(err))
 	}
