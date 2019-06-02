@@ -6,18 +6,12 @@ const Commits = () => {
     console.log('dsjfnjff', this);
     
     return (
-        <Router>
-            {/* {
-                props.location.pathname!=='/commits' ? <Repos/>:''
-            } */}
-            
         
-            <h1>OLA</h1>
+        <h1>Commits</h1>
             
-        </Router> 
     )
 
 
 }
 
-export default withRouter(Commits);
+export default Commits;

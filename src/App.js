@@ -8,6 +8,10 @@ import './App.scss'
 
 import Search from './Components/Search'
 import Repos from './Components/Repos'
+import Header from './Components/Header'
+import Commits from './Components/Commits'
+
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 export default class App extends Component {
 
@@ -44,13 +48,13 @@ export default class App extends Component {
 		let BASE_URL = `https://api.github.com/repos/pedrohenrickcs`;
 
 		this.state.items.map((result) => {
-			console.log('result', result.name);
+			// console.log('result', result.name);
 			return result.name;
 		})
 
 		axios.get(`${BASE_URL}/contacts/commits`)
 		.then(commit => {
-			console.log('COMMITS', commit);
+			// console.log('COMMITS', commit);
 			
 
 		})
@@ -62,50 +66,43 @@ export default class App extends Component {
 	}
 	
 	render() {
+
+		// console.log('AVATAR', avatar);
 		
-		const item  = this.state.items
+		let state = this.state
+		
+		const item = state.items
+		const avatar = state.avatar
+		const nameProfile = state.nameProfile
 
 		this.getCommit()
 
-		console.log('STATE =========', this);
-
-		const text = {
-			fontFamily: 'monospace',
-			fontSize: '15px',
-		}
-		
-		const textShort = {
-			fontWeight: '200',
-			fontSize: '30px',
-			marginBottom: '10px',
-			display: 'inline-block',
-		}
-		
-		const image = {
-			width: '60px',
-			height: '60px',
-			verticalAlign: 'middle',
-			marginRight: '10px'
-		}		
+		console.log('STATE =========', this);	
 
 		return(
-			<Grid fluid>
-				<Row>
-					<Col xs={12}>
-						<Row center="xs">
-							<h1 style={text}><span style={textShort}>GitHub:</span><br/>
-								<img src={this.state.avatar} style={image} />
-								{this.state.nameProfile}
-							</h1>
-						</Row>
-						<Row center="xs">
-							<Search 
-								item={item}
-							></Search>
-						</Row>
-					</Col>
-				</Row>
-			  </Grid>
+			<Router>
+				<Grid fluid>
+					<Row>
+						<Col xs={12}>
+							<Row center="xs">
+								<Header
+									avatar={avatar}
+									nameProfile={nameProfile}
+								/>
+							</Row>
+							<Row center="xs">
+								<Search 
+									item={item}
+								></Search>
+							</Row>
+							<Row>
+								<Route path="/commits" exact component={Commits} />
+							</Row>
+						</Col>
+					</Row>
+				</Grid>
+			</Router>
+
 		)
 	}
 }

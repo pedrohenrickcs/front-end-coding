@@ -6,24 +6,16 @@ const Repos = (props) => {
     
     const { userResult } = props;
 
-    function Index() {
-      return <h2>Home</h2>;
-    }
-
     return(
-        <Router>
-            <Commits></Commits>
-            <ul>
-                {userResult.map((e) => (
-                    <li key={e.id}>
-                        <Link to="/commits">
-                            {e.name}
-                        </Link>
-                    </li>
-                ))}
-            </ul>
-            <Route path="/commits" exact component={Commits} />
-        </Router>
+        <ul>
+            {userResult.map((e) => (
+                <li key={e.id}>
+                    <Link to="/commits">
+                        {e.name}
+                    </Link>
+                </li>
+            ))}
+        </ul>
     )
 }
 
