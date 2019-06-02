@@ -1,58 +1,69 @@
 import React, { Component } from 'react';
-import { browserHistory as history } from 'react-router';
+import Repos from './Repos';
 
 class Search extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            searchString: '',
-            item: []
+            item: [],
+            searchString: ''
         }
-        
-        console.log('item search =dfsdf===', props);
         this.handleChange = this.handleChange.bind(this);
     }
 
     componentDidMount() {
-
-        console.log(this.props);
-        
-
         this.setState({
             item: this.props.item
         })
+
+        this.refs.search.focus();
     }
 
-    handleChange() {
-        this.setState({
-            searchString: this.refs.search.value
-        });
-
-        console.log('searchString', this.state.searchString);
-    }
+     handleChange() {
+         this.setState({
+             searchString: this.refs.search.value
+         });
+     }
     
     render() {        
 
+        const { item } = this.props;
+        
+        let userResult = item;
+        let search = this.state.searchString.trim().toLowerCase();
+        
+        if (search.length > 0) {
+            userResult = userResult.filter(function (user) {
+                return user.name.toLowerCase().match(search);
+            });
+        }
+
         return(
-            <form className="search">
-                <input 
-                    id="venueType" 
-                    type="text"
-                    placeholder="Pesquisar" 
-                    ref="search" 
-                    value={this.state.searchString}
-                    onChange={this.handleChange}
-                />
-                <input 
-                    type="submit" 
-                    value="Submit"
-                />
-            </form>
+            <div>
+                <form className="search">
+                    <input 
+                        id="venueType" 
+                        type="text"
+                        placeholder="Pesquisar"
+                        ref="search" 
+                        value={this.searchString}
+                        onChange={this.handleChange}
+                        autoComplete="off"
+                    />
+                    <input 
+                        type="submit" 
+                        value="Submit"
+                    />
+                </form>
+                <Repos 
+                    item={item}
+                    userResult={userResult}
+                >
+                </Repos>
+            </div>
         )
     }
     
 }
-
-
 
 export default Search;

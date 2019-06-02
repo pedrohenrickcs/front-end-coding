@@ -2,6 +2,7 @@ import React, { Component, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import axios from 'axios';
+import './App.scss'
 
 // import * as ApiGitHub from './Components/Utils/ApiGithub';
 
@@ -16,15 +17,14 @@ export default class App extends Component {
 			items: [],
 			nameProfile: '',
 			avatar: ''
-		};
+		}
 	}
-
-	getApi() {
-		const BASE_URL = `https://api.github.com/users/pedrohenrickcs/repos`;
-
-		axios.get(BASE_URL)
+	
+	getUser() {
+		let BASE_URL = `https://api.github.com/users/pedrohenrickcs`;
+		
+		axios.get(`${BASE_URL}/repos`)
 		.then(e => {
-			// console.log('INFOS REPOSITÓRIO ======', e);
 
 			const wayApi = e.data[0].owner;
 
@@ -35,25 +35,42 @@ export default class App extends Component {
 			})
 			
 			this.setState({ items: result });
-
-			console.log('this', this);
 			
 		})
 		.catch(err => console.error(err))
 	}
 
-	componentDidMount() {
-		this.getApi()
+	getCommit() {
+		let BASE_URL = `https://api.github.com/repos/pedrohenrickcs`;
+
+		this.state.items.map((result) => {
+			console.log('result', result.name);
+			return result.name;
+		})
+
+		axios.get(`${BASE_URL}/contacts/commits`)
+		.then(commit => {
+			console.log('COMMITS', commit);
+			
+
+		})
+
 	}
 
+	componentDidMount() {
+		this.getUser()
+	}
+	
 	render() {
-
+		
 		const item  = this.state.items
 
-		console.log('STATE =========', this.state);
+		this.getCommit()
+
+		console.log('STATE =========', this);
 
 		const text = {
-			fontFamily: 'Arial',
+			fontFamily: 'monospace',
 			fontSize: '15px',
 		}
 		
@@ -85,10 +102,6 @@ export default class App extends Component {
 							<Search 
 								item={item}
 							></Search>
-						</Row>
-						<Row center="xs">
-							<Repos item={item}>
-							</Repos>
 						</Row>
 					</Col>
 				</Row>

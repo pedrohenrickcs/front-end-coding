@@ -10,8 +10,11 @@ module.exports = {
         use: ['babel-loader']
       },
       {
-        test: /\.css$/,
-        loader: 'style-loader!css-loader?modules',
+        test: /\.(css|scss)$/,
+          use: [
+            { loader: 'style-loader', options: { attrs: { id: 'id' } } },
+            { loader: 'css-loader' }
+          ],
         include: /flexboxgrid/
       }
     ]
