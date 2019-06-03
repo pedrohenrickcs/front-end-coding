@@ -47,18 +47,15 @@ export default class App extends Component {
 	getCommit() {
 		let BASE_URL = `https://api.github.com/repos/pedrohenrickcs`;
 
-		this.state.items.map((result) => {
-			// console.log('result', result.name);
+		const names = this.state.items.map((result) => {
+			console.log('result', result.name);
 			return result.name;
 		})
 
 		axios.get(`${BASE_URL}/contacts/commits`)
 		.then(commit => {
-			// console.log('COMMITS', commit);
-			
-
+			console.log('COMMITS', commit);
 		})
-
 	}
 
 	componentDidMount() {
